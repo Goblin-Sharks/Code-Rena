@@ -1,15 +1,28 @@
+// const http = require('http')
 const express = require('express');
+
+//----------------------------
 const app = express();
+// const server = http.createServer(app);
+//----------------------------
+
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const path = require('path');
 const cors = require('cors');
+
+//socket io initiating---------------
+// const socketio = require('socket.io');
+// const io = socketio(server);
+//-------------------------
+
 // require schema
 const User = require('./models/userModel');
 // require routers
 const loginRouter = require('./routes/arena');
 const homeRouter = require('./routes/home');
 const arenaRouter = require('./routes/login');
+const userControllers = require('./controllers/userControllers');
 const port = process.env.PORT || 5000;
 // if (process.env.NODE_ENV === 'production') {
 //   app.use('/build', express.static(path.join(__dirname, '../build')));
@@ -37,6 +50,7 @@ mongoose
   })
   .then(() => console.log('Connected to Mongo DB.'))
   .catch((err) => console.log(err));
+
 app.get('/', (req, res) => {
   res.json('you are in the homepage');
 });
@@ -56,14 +70,26 @@ app.post('/signup', (req, res) => {
           err: 'Error occured in register. Check server logs for more details.',
         },
       };
-    return res.status(200).json({
-      success: true,
-    });
+    // return res.status(200).json({
+    //   success: true,
+    return res.redirect('/home');
   });
 });
+
+//signup routers
+app.get('/signup', (req, res) => {
+  res.render('./../client/signup', { error: null });
+});
+
+//login routers
+app.use('/login', userControllers.verifyUser, (req, res) => {
+  return res.status(200).json(res.locals.user).redirect('/home');
+});
+
 app.use('*', (req, res, next) => {
   return res.sendStatus(404);
 });
+
 //eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
   const defaultErr = {
