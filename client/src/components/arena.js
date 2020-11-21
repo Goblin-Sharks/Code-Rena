@@ -5,16 +5,31 @@ import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Card, Form, ListGroup, CardGroup, InputGroup, FormControl } from 'react-bootstrap';
 
-
-
-let clientRawText=''
-
-// const box1=document.getElementById('cli1')
-// const box2=document.getElementById('cli2')
-// box1.addEventListener('input',()=>{
-//   box1.value= clientRawText
-// })
 class Arena extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      textInput : '',
+    }
+
+    // This binding is necessary to make `this` work in the callback
+    this.handleClick = this.handleClick.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleClick(e) {
+    e.preventDefault()
+    const text = this.state.textInput;
+    console.log('onClickText', this.state.textInput);
+ 
+  }
+  handleChange(e) {
+    const text = e.target.value
+    this.setState({textInput: text})
+    console.log('text', text);
+    console.log('state', this.state);
+  }
+
   render() {
     return (
       <div style={{ margin: '2rem 2rem auto 2rem' }}>
@@ -57,9 +72,11 @@ class Arena extends Component {
                 <InputGroup.Prepend>
                   <InputGroup.Text>Write you answer here</InputGroup.Text>
                 </InputGroup.Prepend>
-                <FormControl as="textarea" rows={15} aria-label="With textarea" />
+                <FormControl id='box1' as="textarea" rows={15} aria-label="With textarea" onChange={(e)=> this.handleChange(e)}/>
               </InputGroup>
-              <Button variant="primary">Submit</Button>
+              <Button variant="primary" onClick = {(e)=> {
+              this.handleClick(e)
+              }} > Submit</Button>
               <Button variant="light">Give Up!</Button>
             </Card.Body>
           </Card>
@@ -71,7 +88,7 @@ class Arena extends Component {
                 <InputGroup.Prepend>
                   <InputGroup.Text>Player Two is typing...</InputGroup.Text>
                 </InputGroup.Prepend>
-                <FormControl as="textarea" rows={15} aria-label="With textarea" />
+                <FormControl id='box2' as="textarea" rows={15} aria-label="With textarea" />
               </InputGroup>
               <Button variant="primary">Hide!</Button>
             </Card.Body>
