@@ -16,6 +16,8 @@
     "express": "^4.17.1",
     "mongoose": "^5.10.14",
     "nodemon": "^2.0.6",
-    "react-router-dom": "^5.2.0"
+    "react-router-dom": "^5.2.0",
+    "socket-io": "^1.0.0",
+    "socket.io": "^3.0.3"
   }
 }

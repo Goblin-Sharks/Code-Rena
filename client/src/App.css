@@ -1,3 +1,13 @@
+#cli2{
+  float:right;
+  height:800px;
+  width:500px;
+}
+#cli1{
+  float:left;
+  height:800px;
+  width:500px;
+}
 .App {
   text-align: center;
 }
