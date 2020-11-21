@@ -39,6 +39,29 @@ const retrieveDepth = (arr, depth, idx = 1) => {
 let correct = retrieveDepth;
 
 class Arena extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      textInput : '',
+    }
+
+    // This binding is necessary to make `this` work in the callback
+    this.handleClick = this.handleClick.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleClick(e) {
+    e.preventDefault()
+    const text = this.state.textInput;
+    console.log('onClickText', this.state.textInput);
+ 
+  }
+  handleChange(e) {
+    const text = e.target.value
+    this.setState({textInput: text})
+    console.log('text', text);
+    console.log('state', this.state);
+  }
   render() {
     return (
       <div style={{ margin: '2rem 2rem auto 2rem' }}>
@@ -131,6 +154,7 @@ class Arena extends Component {
                   rows={15}
                   aria-label="With textarea"
                 />
+
               </InputGroup>
               <Button variant="primary">Hide!</Button>
             </Card.Body>
