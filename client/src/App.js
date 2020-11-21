@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
+import Login from './components/login';
+import Home from './components/home';
+import Arena from './components/arena';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 // import { Button, Card, Alert } from 'react-bootstrap';
 
@@ -46,7 +49,29 @@ class App extends Component {
 //     );
 //   }
 render() {
-  return (<div>Testttttt</div>)
+  return (
+  <BrowserRouter>
+    <div>
+        <Switch>
+         <Route path="/" component={Login} exact/>
+         <Route path="/home" component={Home}/>
+         <Route path="/arena" component={Arena}/>
+        
+       </Switch>
+    </div> 
+  </BrowserRouter>
+
+   
+  )
 }
  }
 export default App;
+ /* <React.Fragment>
+    <div>
+    <Login/>
+    <Home />
+    </div>
+    <div>
+    <Arena/>
+    </div>
+    </React.Fragment> */
